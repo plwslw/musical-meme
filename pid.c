@@ -4,10 +4,18 @@
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <errno.h>
 
 static void sighandler(int signo){
   if (signo == SIGINT){
-    printf("Exit due to SIGINT \n");
+    int i = open("log.txt",O_CREAT | O_EXCL | O_WRONLY,0644);
+    char *str = "Exit due to SIGINT \n";
+    int success = write(i,str,20);
+    if(success == -1)
+      printf("error: %s - \n",strerror(errno));
+    close(i);
     exit(1);
   }
 

@@ -1,7 +1,8 @@
 pid: pid.c
 	gcc -o pid pid.c
 
-clean: 
+clean:
+	rm log.txt
 	rm pid
 	rm *~
 
